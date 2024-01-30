@@ -1,11 +1,10 @@
-import { Poppins as FontSans } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Layout from "@/components/Layout";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: "100",
 });
 
 export default function RootLayout({
