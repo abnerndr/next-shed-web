@@ -29,7 +29,7 @@ export default function AccessForm() {
                 <h3 className="font-bold text-3xl text-black">
                   Create an Account
                 </h3>
-                <p className="text-gray-500 text-sm text-center">
+                <p className="text-gray-500 text-sm text-center py-10">
                   Enter your email below to create your account
                 </p>
               </div>
@@ -40,14 +40,16 @@ export default function AccessForm() {
                   placeholder="name@example.com"
                 />
               </div>
-              {!isLoading ? (
-                <Button type="button" onClick={handleLoading}>
-                  Sign In with Email
-                </Button>
-              ) : (
-                <ButtonLoading />
-              )}
-              <p className="py-10 text-gray-500 text-xs">
+              <div className="py-5 ">
+                {!isLoading ? (
+                  <Button className="w-full" type="button" onClick={handleLoading}>
+                    Sign In with Email
+                  </Button>
+                ) : (
+                  <ButtonLoading  />
+                )}
+              </div>
+              <p className="py-6 text-gray-500 text-xs">
                 By clicking continue, you agree to our Terms of Service and
                 Privacy Policy.
               </p>
