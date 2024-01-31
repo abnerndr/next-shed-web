@@ -3,6 +3,9 @@ import { useState } from "react";
 import { ButtonLoading } from "../common/ButtonLoading";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { ModeToggle } from "../common/ModeToggle";
+import Image from "next/image";
+import Logo from "../../assets/img/logo-svg.svg";
 
 export default function AccessForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -15,48 +18,68 @@ export default function AccessForm() {
     setIsLoading(false);
   };
   return (
-    <div className="relative h-screen isolate bg-white">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-        <div className="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
-          <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-            <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-zinc-900 ring-1 ring-gray-900/10 lg:w-1/2"></div>
-          </div>
-        </div>
-        <form className="px-6 pb-24 pt-20 sm:pb-32 lg:px-32 lg:py-48">
-          <div className="w-full max-w-xl lg:mr-0 lg:2-full">
-            <div className="flex flex-col mt-auto justify-center text-center">
-              <div className="pb-5">
-                <h3 className="font-bold text-3xl text-black">
-                  Create an Account
-                </h3>
-                <p className="text-gray-500 text-sm text-center py-10">
-                  Enter your email below to create your account
-                </p>
+    <>
+      <ModeToggle />
+      <div className="relative h-screen isolate bg-white">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
+          <div className="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
+            <div className="-mt-36 -ml-20">
+              <Image src={Logo.src} alt={"SCHD"} width={120} height={90} />
+            </div>
+            <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
+              <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-zinc-900 ring-1 ring-gray-900/10 lg:w-1/2">
+                <div className="py-96 mt-64 p-20">
+                  <span className="text-gray-300">
+                    “Aqui temos um serviço de agendamento personalisado para
+                    você, onde você pode ter todos serviços que vamos
+                    disponibilizar o melhores serviço para você a partir do seu
+                    gosto.”
+                  </span>
+                </div>
               </div>
-              <div className="w-full pb-2">
-                <Input
-                  name="email"
-                  type="email"
-                  placeholder="name@example.com"
-                />
-              </div>
-              <div className="py-5 ">
-                {!isLoading ? (
-                  <Button className="w-full" type="button" onClick={handleLoading}>
-                    Sign In with Email
-                  </Button>
-                ) : (
-                  <ButtonLoading  />
-                )}
-              </div>
-              <p className="py-6 text-gray-500 text-xs">
-                By clicking continue, you agree to our Terms of Service and
-                Privacy Policy.
-              </p>
             </div>
           </div>
-        </form>
+          <form className="pb-24 pt-20 sm:pb-32 lg:px-32 lg:py-48">
+            <div className="ml-24 w-full max-w-xl lg:mr-0 lg:2-full">
+              <div className="flex flex-col px- mt-auto justify-center text-center">
+                <div className="pb-2">
+                  <h3 className="font-bold text-3xl text-black">
+                    Acesse sua conta
+                  </h3>
+                  <p className="text-gray-500 text-sm text-center py-10">
+                    Use o e-mail cadastrado para receber o token de acesso
+                  </p>
+                </div>
+                <div className="w-full pb-2 ">
+                  <Input
+                    className="bg-gray-50"
+                    name="email"
+                    type="email"
+                    placeholder="name@example.com"
+                  />
+                </div>
+                <div className="py-5 ">
+                  {!isLoading ? (
+                    <Button
+                      className="w-full bg-gray-950 text-gray-50 hover:bg-gray-600 "
+                      type="button"
+                      onClick={handleLoading}
+                    >
+                      Entrar
+                    </Button>
+                  ) : (
+                    <ButtonLoading />
+                  )}
+                </div>
+                <p className="text-gray-500 text-xs">
+                  Ao clicar em entrar, você concorda com nossos Termos de
+                  Serviço e Política de Privacidade.
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

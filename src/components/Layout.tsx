@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-head-element */
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import "@/assets/styles/globals.css";
@@ -15,14 +16,19 @@ export const metadata: Metadata = {
 function Layout({ children }: ILayout) {
   return (
     <>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        {children}
-      </ThemeProvider>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
     </>
   );
 }
