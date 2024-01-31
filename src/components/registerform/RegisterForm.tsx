@@ -38,7 +38,7 @@ export default function RegisterForm() {
         <form onSubmit={() => {}} className="mx-auto mt-16 max-w-xl sm:mt-20">
           <FormField
             control={form.control}
-            name="full_name"
+            name="full_name" 
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Full Name</FormLabel>
