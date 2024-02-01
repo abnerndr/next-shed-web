@@ -8,8 +8,8 @@ export default function Home() {
     <>
       <ModeToggle />
       {/* <AcessForm /> */}
-      {/* <RegisterForm/> */}
-      <PaymentForm/>
+        <RegisterForm/>
+      {/* <PaymentForm/> */}
     </>
   );
 }
