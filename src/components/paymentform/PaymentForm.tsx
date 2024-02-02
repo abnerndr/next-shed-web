@@ -25,8 +25,8 @@ import { CgNotes } from "react-icons/cg";
 
 export default function PaymentForm() {
   return (
-    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-      <div className="bg-gray-100 px-6 py-12 shadow sm:rounded-lg sm:px-12">
+    <div className="mt-5 sm:mx-20 sm:w-full sm:max-w-[480px]">
+      <div className="bg-gray-100 py-6 shadow sm:rounded-lg sm:px-8">
         <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
           <Card className="w-[350px]">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
