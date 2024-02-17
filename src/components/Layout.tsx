@@ -1,8 +1,11 @@
-/* eslint-disable @next/next/no-head-element */
+"use client";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import "@/assets/styles/globals.css";
 import { ThemeProvider } from "./ThemeProvider";
+import { usePathname } from "next/navigation";
+import { checkIsPublicRoute } from "@/utils/functions/check-route";
+import PrivateRouteProvider from "./provider/PrivateRouteProvider";
 
 interface ILayout {
   children: ReactNode;
@@ -14,6 +17,8 @@ export const metadata: Metadata = {
 };
 
 function Layout({ children }: ILayout) {
+  const pathname = usePathname();
+  const isPublic = checkIsPublicRoute(pathname);
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -25,6 +30,11 @@ function Layout({ children }: ILayout) {
             enableSystem
             disableTransitionOnChange
           >
+            {isPublic && children}
+            {!isPublic && (
+              <PrivateRouteProvider>{children}</PrivateRouteProvider>
+            )}
+
             {children}
           </ThemeProvider>
         </body>
