@@ -6,8 +6,8 @@ import RegisterForm from "@/components/registerform/RegisterForm";
 export default function Home() {
   return (
     <>
-      <ModeToggle />
-      {/* <AcessForm /> */}
+      {/* <ModeToggle /> */}
+        {/* <AcessForm /> */}
         <RegisterForm/>
       {/* <PaymentForm/> */}
     </>
