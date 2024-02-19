@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 import { getCookie, setCookie, deleteCookie } from "cookies-next";
 import { BASE_URL } from "@/utils/constants/base-url";
 import { apiService } from "@/services/api";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 interface ISendToken {
   email: string;
@@ -28,12 +30,14 @@ type AuthProviderProps = {
 type AuthContextProps = {
   SendToken: (data: ISendToken) => void;
   AuthUser: (data: IAuthUser) => void;
+  SignOut: () => void;
   authIsLoading: boolean;
 };
 
 export const AuthContext = createContext({} as AuthContextProps);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
+  const { toast } = useToast();
   // cookie states value caching
   const [email, setEmail] = useState<string>("");
   const [token, setToken] = useState<string>("");
@@ -78,12 +82,22 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             path: "/",
           });
         }
+        toast({
+          title: "token enviado com sucesso!",
+          description: `o seu token de autenticação foi enviado para a caixa de ${email}`,
+          action: <ToastAction altText="Entendi">Entendi</ToastAction>,
+        });
       } catch (error) {
-        console.log(error);
+        toast({
+          variant: "destructive",
+          title: "ops, algo aconteceu ao enviar o token",
+          description: `espere alguns minutos e tente novamente, ou acesse shcd.com.br/support`,
+          action: <ToastAction altText="Entendi">Entendi</ToastAction>,
+        });
       }
       setAuthIsLoading(false);
     },
-    [baseUrl]
+    [baseUrl, toast]
   );
 
   //   authenticated user
@@ -117,16 +131,34 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             path: "/",
           });
         }
-
+        toast({
+          title: `bem vindo! ${user.name} ao seu painel`,
+          action: <ToastAction altText="Entendi">Entendi</ToastAction>,
+        });
         apiService.defaults.headers["Authorization"] = `Bearer ${token}`;
         if (token) router.push("/dashboard");
       } catch (error) {
-        console.log(error);
+        toast({
+          variant: "destructive",
+          title: "ops, algo aconteceu ao realizar autenticação",
+          description: `espere alguns minutos e tente novamente, ou acesse shcd.com.br/support`,
+          action: <ToastAction altText="Entendi">Entendi</ToastAction>,
+        });
       }
       setAuthIsLoading(false);
     },
-    [baseUrl, email, router]
+    [baseUrl, email, router, toast]
   );
+
+  const SignOut = useCallback(() => {
+    if (typeof window !== "undefined") {
+      deleteCookie("shcd.email");
+      deleteCookie("shcd.token");
+      deleteCookie("shcd.user");
+      deleteCookie("shcd.user_id");
+      deleteCookie("shcd.company_id");
+    }
+  }, []);
 
   return (
     <>
@@ -134,6 +166,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         value={{
           SendToken,
           AuthUser,
+          SignOut,
           authIsLoading,
         }}
       >
