@@ -47,8 +47,13 @@ export function CompanyForm() {
             <form>
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
-                  <Label htmlFor="name">razão social</Label>
-                  <Input {...register("name")} />
+                  <Label
+                    className="pl-1 text-xs font-semibold text-zinc-800"
+                    htmlFor="name"
+                  >
+                    razão social
+                  </Label>
+                  <Input className="h-8 rounded-xl" {...register("name")} />
                 </div>
                 <div className="sm:col-span-3">
                   <Label htmlFor="document_number">cnpj</Label>

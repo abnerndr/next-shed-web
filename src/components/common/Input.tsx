@@ -8,13 +8,13 @@ type InputDefaultProps = {
 export function InputDefault({ title }: InputDefaultProps) {
   return (
     <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="email">{title}</Label>
-      <Input
-        className="bg-gray-50"
-        type="email"
-        id="email"
-        placeholder="Email"
-      />
+      <Label
+        className="pl-1 text-xs font-semibold text-zinc-800"
+        htmlFor="name"
+      >
+        razão social
+      </Label>
+      <Input className="h-8 rounded-xl" />
     </div>
   );
 }
