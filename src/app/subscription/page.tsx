@@ -1,9 +1,9 @@
-import { SubscriptionForm } from "@/components/app/subscription/FormRegister";
+import { CompanyForm } from "@/components/app/subscription/forms/CompanyForm";
 
 export default function Subscription() {
   return (
     <>
-      <SubscriptionForm />
+      <CompanyForm />
     </>
   );
 }
