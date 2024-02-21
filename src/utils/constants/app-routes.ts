@@ -13,7 +13,13 @@ export const APP_ROUTES = {
             }
         },
         subscription: {
-            name: '/subscription'
+            name: '/subscription',
+            step1: {
+                name: '/step1'
+            },
+            step2: {
+                name: '/step2'
+            }
         }
     }
 }
