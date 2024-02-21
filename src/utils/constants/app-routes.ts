@@ -6,20 +6,9 @@ export const APP_ROUTES = {
     },
     public: {
         login: '/',
+        subscription: '/subscription',
         auth: {
-            name: '/auth',
-            id: {
-                name: '[id]'
-            }
+            id: '[id]'
         },
-        subscription: {
-            name: '/subscription',
-            step1: {
-                name: '/step1'
-            },
-            step2: {
-                name: '/step2'
-            }
-        }
     }
 }

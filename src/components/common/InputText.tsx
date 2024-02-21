@@ -24,12 +24,7 @@ const InputText: React.ForwardRefRenderFunction<
           </Label>
         ) : null}
 
-        <Input
-          {...rest}
-          type={type}
-          ref={ref}
-          className="h-8 w-full rounded-xl"
-        />
+        <Input {...rest} type={type} ref={ref} className="h-8 w-full" />
         {error ? (
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
             <AlertCircleIcon className="h-5 w-5 text-red-500" />
