@@ -7,8 +7,9 @@ export const APP_ROUTES = {
     public: {
         login: '/',
         subscription: '/subscription',
-        auth: {
-            id: '[id]'
-        },
+        step1: '/subscription/step1',
+        step2: '/subscription/step2',
+        auth: '/auth',
+        id: 'auth/[id]',
     }
 }
