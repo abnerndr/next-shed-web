@@ -1,37 +1,108 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { FieldValues, UseFormRegister } from "react-hook-form";
+"use client";
+import InputText from "@/components/common/InputText";
+import { ChangeEvent, useCallback, useEffect } from "react";
+import {
+  FieldValues,
+  Control,
+  Controller,
+  UseFormSetValue,
+} from "react-hook-form";
+import { cep } from "cep-promise";
 
 interface IAddressForm {
-  register: UseFormRegister<FieldValues>;
+  control: Control<FieldValues, any, FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
 }
 
-export function AddressForm({ register }: IAddressForm) {
+export function AddressForm({ control, setValue }: IAddressForm) {
+  const handleGetAddress = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const code = event.target.value;
+      if (code.length >= 8) {
+        cep(code)
+          .then((item) => {
+            setValue("postal_code", item.cep);
+            setValue("street", item.street);
+            setValue("neighborhood", item.neighborhood);
+            setValue("city", item.city);
+            setValue("state", item.state);
+          })
+          .catch(() => {
+            setValue("postal_code", "");
+            setValue("street", "");
+            setValue("neighborhood", "");
+            setValue("city", "");
+            setValue("state", "");
+          });
+      } else {
+        setValue("street", "");
+        setValue("neighborhood", "");
+        setValue("city", "");
+        setValue("state", "");
+      }
+    },
+    [setValue]
+  );
+
   return (
     <>
-      <div className="sm:col-span-3">
-        <Label htmlFor="postal_code">código postal</Label>
-        <Input {...register("postal_code")} />
+      <div className="sm:col-span-2">
+        <Controller
+          control={control}
+          name="postal_code"
+          render={({ field: { onChange, ...rest } }) => (
+            <InputText
+              label="código postal"
+              onChange={handleGetAddress}
+              {...rest}
+            />
+          )}
+        />
       </div>
       <div className="sm:col-span-5">
-        <Label htmlFor="street">logradouro</Label>
-        <Input {...register("street")} />
+        <Controller
+          control={control}
+          name="street"
+          render={({ field: { onChange, ...rest } }) => (
+            <InputText label="logradouro" onChange={onChange} {...rest} />
+          )}
+        />
       </div>
       <div className="sm:col-span-1">
-        <Label htmlFor="number">n°</Label>
-        <Input {...register("number")} />
+        <Controller
+          control={control}
+          name="number"
+          render={({ field: { onChange, ...rest } }) => (
+            <InputText label="n°" onChange={onChange} {...rest} />
+          )}
+        />
       </div>
       <div className="sm:col-span-3">
-        <Label htmlFor="nigthborhood">bairro</Label>
-        <Input {...register("nigthborhood")} />
+        <Controller
+          control={control}
+          name="neighborhood"
+          render={({ field: { onChange, ...rest } }) => (
+            <InputText label="bairro" onChange={onChange} {...rest} />
+          )}
+        />
       </div>
       <div className="sm:col-span-2">
-        <Label htmlFor="city">cidade</Label>
-        <Input {...register("city")} />
+        <Controller
+          control={control}
+          name="city"
+          render={({ field: { onChange, ...rest } }) => (
+            <InputText label="cidade" onChange={onChange} {...rest} />
+          )}
+        />
       </div>
       <div className="sm:col-span-1">
-        <Label htmlFor="city">estado</Label>
-        <Input {...register("city")} />
+        <Controller
+          control={control}
+          name="state"
+          render={({ field: { onChange, ...rest } }) => (
+            <InputText label="estado" onChange={onChange} {...rest} />
+          )}
+        />
       </div>
     </>
   );
