@@ -7,7 +7,7 @@ import {
   Controller,
   UseFormSetValue,
 } from "react-hook-form";
-import { cep } from "cep-promise";
+import cep from "cep-promise";
 
 interface IAddressForm {
   control: Control<FieldValues, any, FieldValues>;
