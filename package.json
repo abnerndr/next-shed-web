@@ -1,6 +1,6 @@
 {
   "name": "next-shed-web",
-  "version": "0.1.0",
+  "version": "",
   "private": true,
   "scripts": {
     "cache": "yarn cache clean",
