@@ -82,7 +82,7 @@ export default function AccessForm() {
                 <div className="py-5 ">
                   {!authIsLoading ? (
                     <Button
-                      className="w-full bg-gray-950 text-gray-50 hover:bg-gray-600 "
+                      className="w-full bg-gray-950 text-gray-50 hover:bg-gray-600"
                       type="submit"
                     >
                       Entrar

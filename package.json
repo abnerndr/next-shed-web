@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "cache": "yarn cache clean",
+    "dev": "clear && next dev",
+    "build": "clear && next build",
     "start": "next start",
-    "lint": "next lint",
-    "remove-logs": "strip-debug src/**/*.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",

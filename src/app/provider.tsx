@@ -9,7 +9,7 @@ export default function Provider({ children }: { children: ReactNode }) {
       <AuthProvider>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="ligth"
           enableSystem
           disableTransitionOnChange
         >

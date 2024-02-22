@@ -1,12 +1,50 @@
 import { CheckCircle2 } from "lucide-react";
 import clsx from "clsx";
 import { StepOptionsProps } from "./steps.types";
+import { useMemo } from "react";
 
 interface IModelTwo {
-  steps: StepOptionsProps[];
+  id: number;
 }
 
-export function ModelTwo({ steps }: IModelTwo) {
+export function ModelTwo({ id }: IModelTwo) {
+  const status1 = id === 1 ? "current" : "complete";
+  const status2 =
+    (id === 2 && "current") ||
+    (id === 1 && "upcoming") ||
+    (id === 3 && "complete") ||
+    "upcoming";
+  const status3 =
+    (id === 3 && "current") ||
+    (id === 2 && "upcoming") ||
+    (id === 1 && "upcoming") ||
+    "upcoming";
+  const steps: StepOptionsProps[] = useMemo(
+    () => [
+      {
+        id: 1,
+        name: "Crie sua empresa",
+        description: "passo 1 - selecione as opções da empresa",
+        href: "/subscription",
+        status: status1,
+      },
+      {
+        id: 2,
+        name: "Crie seu administrador",
+        description: "passo 2 - crie o seu usuário adiminstrador",
+        href: "/subscription/step1",
+        status: status2,
+      },
+      {
+        id: 3,
+        name: "Selecione sua assinature",
+        description: "passo 3 - selecione as opções de sua assinatura",
+        href: "/subscription/step2",
+        status: status3,
+      },
+    ],
+    [status1, status2, status3]
+  );
   return (
     <nav aria-label="Progress">
       <ol role="list" className="overflow-hidden">
