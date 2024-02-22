@@ -8,6 +8,7 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 import cep from "cep-promise";
+import { formatPostalCode } from "@/utils/helpers/masks/address";
 
 interface IAddressForm {
   control: Control<FieldValues, any, FieldValues>;
@@ -18,10 +19,10 @@ export function AddressForm({ control, setValue }: IAddressForm) {
   const handleGetAddress = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const code = event.target.value;
-      if (code.length >= 8) {
+      if (code.length >= 10) {
         cep(code)
           .then((item) => {
-            setValue("postal_code", item.cep);
+            setValue("postal_code", formatPostalCode(item.cep));
             setValue("street", item.street);
             setValue("neighborhood", item.neighborhood);
             setValue("city", item.city);
@@ -53,8 +54,13 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           render={({ field: { onChange, ...rest } }) => (
             <InputText
               label="código postal"
-              onChange={handleGetAddress}
+              onChange={(e) => {
+                onChange(formatPostalCode(e.target.value));
+                handleGetAddress(e);
+              }}
               {...rest}
+              maxLength={10}
+              placeholder="formatPostalCode"
             />
           )}
         />
