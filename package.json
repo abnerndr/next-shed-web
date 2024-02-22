@@ -1,11 +1,11 @@
 {
   "name": "next-shed-web",
-  "version": "",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "cache": "yarn cache clean",
-    "dev": "clear && next dev",
-    "build": "clear && next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
