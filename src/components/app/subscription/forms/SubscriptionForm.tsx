@@ -21,11 +21,11 @@ export function SubscriptionForm() {
               </p>
               <form>
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
+                <div className="sm:col-span-3 mb-5">
+                  <PlanPrice />
+                </div>
                   <div className="sm:col-span-3 mb-5">
                     <PaymentForm />
-                  </div>
-                  <div className="sm:col-span-3 mb-5">
-                    <PlanPrice />
                   </div>
                 </div>
               </form>

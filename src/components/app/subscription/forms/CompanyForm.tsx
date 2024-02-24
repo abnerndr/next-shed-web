@@ -37,6 +37,7 @@ export function CompanyForm() {
                         label="razão social"
                         onChange={onChange}
                         {...rest}
+                        placeholder="minha empresa"
                       />
                     )}
                   />
@@ -86,6 +87,7 @@ export function CompanyForm() {
                         type="email"
                         onChange={onChange}
                         {...rest}
+                        placeholder="email@email.com.br"
                       />
                     )}
                   />
