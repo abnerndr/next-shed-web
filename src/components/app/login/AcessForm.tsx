@@ -33,10 +33,8 @@ export default function AccessForm() {
     <>
       <div className="relative h-screen isolate bg-white">
         <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-          <div className="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
-            <div className="w-full">
-              <Image src={Logo.src} alt={"SCHD"} width={120} height={90} />
-            </div>
+          <div className="md:ml-72 md:py-20 lg:-ml-6 lg:py-40">
+            <Image src={Logo.src} alt={"SCHD"} width={150} height={90} />
             <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
               <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-zinc-900 ring-1 ring-gray-900/10 lg:w-1/2">
                 <div className="py-96 mt-64 p-20">
@@ -51,10 +49,10 @@ export default function AccessForm() {
             </div>
           </div>
           <form
-            className="pb-24 pt-20 sm:pb-32 lg:px-32 lg:py-48"
+            className="pb-24 pt-20 sm:pb-32 lg:px-32 lg:py-64"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="ml-24 w-full max-w-xl lg:mr-0 lg:2-full">
+            <div className="lg:ml-80 w-full max-w-xl lg:mr-0 lg:2-full">
               <div className="flex flex-col px- mt-auto justify-center text-center">
                 <div className="pb-2">
                   <h3 className="font-bold text-3xl text-black">

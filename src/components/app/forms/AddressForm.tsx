@@ -22,7 +22,7 @@ export function AddressForm({ control, setValue }: IAddressForm) {
       if (code.length >= 10) {
         cep(code)
           .then((item) => {
-            setValue("postal_code", formatPostalCode(item.cep));
+            setValue("postal_code", formatPostalCode(item?.cep));
             setValue("street", item.street);
             setValue("neighborhood", item.neighborhood);
             setValue("city", item.city);
@@ -60,7 +60,7 @@ export function AddressForm({ control, setValue }: IAddressForm) {
               }}
               {...rest}
               maxLength={10}
-              placeholder="formatPostalCode"
+              placeholder="0000-000"
             />
           )}
         />
@@ -70,7 +70,7 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           control={control}
           name="street"
           render={({ field: { onChange, ...rest } }) => (
-            <InputText label="logradouro" onChange={onChange} {...rest} />
+            <InputText label="logradouro" onChange={onChange} {...rest} placeholder="rua das flores" />
           )}
         />
       </div>
@@ -79,7 +79,7 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           control={control}
           name="number"
           render={({ field: { onChange, ...rest } }) => (
-            <InputText label="n°" onChange={onChange} {...rest} />
+            <InputText label="n°" onChange={onChange} {...rest} placeholder="00"/>
           )}
         />
       </div>
@@ -88,7 +88,7 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           control={control}
           name="neighborhood"
           render={({ field: { onChange, ...rest } }) => (
-            <InputText label="bairro" onChange={onChange} {...rest} />
+            <InputText label="bairro" onChange={onChange} {...rest} placeholder="jardim das margaridas"/>
           )}
         />
       </div>
@@ -97,7 +97,7 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           control={control}
           name="city"
           render={({ field: { onChange, ...rest } }) => (
-            <InputText label="cidade" onChange={onChange} {...rest} />
+            <InputText label="cidade" onChange={onChange} {...rest} placeholder="são paulo"/>
           )}
         />
       </div>
@@ -106,7 +106,7 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           control={control}
           name="state"
           render={({ field: { onChange, ...rest } }) => (
-            <InputText label="estado" onChange={onChange} {...rest} />
+            <InputText label="estado" onChange={onChange} {...rest} placeholder="SP"/>
           )}
         />
       </div>

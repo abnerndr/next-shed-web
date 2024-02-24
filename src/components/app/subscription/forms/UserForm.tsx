@@ -1,10 +1,13 @@
 import { Step } from "@/components/common/Steps";
-import { StepOptionsProps } from "@/components/common/Steps/steps.types";
 import { AddressForm } from "../../forms/AddressForm";
 import InputText from "@/components/common/InputText";
 import { Controller, useForm } from "react-hook-form";
-import PaymentForm from "../../forms/PaymentForm";
-import PlanPrice from "../../forms/PlanPrice";
+import { applyCpfMask } from "@/utils/helpers/masks/document";
+import { formatAllPhone } from "@/utils/helpers/masks/phone";
+import ButtonMain from "@/components/common/ButtonMain";
+import { ArrowRightIcon } from "lucide-react";
+import { Switch } from "@/components/ui/switch"
+import { Label } from "@radix-ui/react-label";
 
 export function UserForm() {
   const { handleSubmit, control, setValue, register } = useForm({});
@@ -34,6 +37,7 @@ export function UserForm() {
                         label="nome completo"
                         onChange={onChange}
                         {...rest}
+                        placeholder="joão alves"
                       />
                     )}
                   />
@@ -43,7 +47,7 @@ export function UserForm() {
                     control={control}
                     name="document_number"
                     render={({ field: { onChange, ...rest } }) => (
-                      <InputText label="cpf" onChange={onChange} {...rest} />
+                      <InputText label="cpf" onChange={(e) => { onChange(applyCpfMask(e.target.value)) }} maxLength={14} {...rest} placeholder="000.000.000-00" />
                     )}
                   />
                 </div>
@@ -55,8 +59,10 @@ export function UserForm() {
                     render={({ field: { onChange, ...rest } }) => (
                       <InputText
                         label="telefone/celular"
-                        onChange={onChange}
+                        onChange={(e) => { onChange(formatAllPhone(e.target.value)) }}
                         {...rest}
+                        placeholder="(00) 0 0000-0000"
+                        maxLength={15}
                       />
                     )}
                   />
@@ -66,11 +72,23 @@ export function UserForm() {
                     control={control}
                     name="email"
                     render={({ field: { onChange, ...rest } }) => (
-                      <InputText label="email" onChange={onChange} {...rest} />
+                      <InputText label="email" type='email' onChange={onChange} {...rest}
+                        placeholder="email@email.com.br" />
                     )}
                   />
                 </div>
                 <AddressForm control={control} setValue={setValue} />
+              </div>
+              <div className="flex items-center space-x-2 pt-4">
+                <Switch id="airplane-mode" />
+                <Label htmlFor="airplane-mode" className="text-sm font-medium">ativar administrador</Label>
+              </div>
+              <div className="mt-12 justify-end items-center flex w-full">
+                <div className="w-[18%]">
+                  <ButtonMain className="text-sm pr-2" variant={"default"}>
+                    próximo <ArrowRightIcon className="w-4 h-4 ml-1" />
+                  </ButtonMain>
+                </div>
               </div>
             </form>
           </div>
