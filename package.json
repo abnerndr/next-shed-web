@@ -2,6 +2,9 @@
   "name": "next-shed-web",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "cache": "yarn cache clean",
     "dev": "next dev",
