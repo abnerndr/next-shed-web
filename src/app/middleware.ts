@@ -5,7 +5,7 @@ export default function middleware(req: NextRequest) {
     const isPublic = checkIsPublicRoute(req.nextUrl.pathname)
 
     if (isPublic) {
-        NextResponse.redirect(new URL('/auth', req.url))
+        NextResponse.redirect(new URL('/', req.url))
     }
 
 }

@@ -77,7 +77,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const url = `${baseUrl}/auth/send/token`;
         await apiService.post(url, { email });
         if (typeof window !== "undefined") {
-          setCookie("shcd.email", email, {
+          setCookie("shcd.email", JSON.stringify(email), {
             maxAge: 60 * 60 * 24 * 30,
             path: "/",
           });

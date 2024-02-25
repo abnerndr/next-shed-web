@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@/components/common/ThemeProvider";
+import { Toaster } from "@/components/ui/toaster";
 import AuthProvider from "@/context/AuthContext";
-import { ToastProvider } from "@radix-ui/react-toast";
 import { ReactNode } from "react";
 
 export default function Provider({ children }: { children: ReactNode }) {
@@ -13,7 +13,7 @@ export default function Provider({ children }: { children: ReactNode }) {
           enableSystem
           disableTransitionOnChange
         >
-          <ToastProvider swipeDirection="up" />
+          <Toaster />
           {children}
         </ThemeProvider>
       </AuthProvider>
