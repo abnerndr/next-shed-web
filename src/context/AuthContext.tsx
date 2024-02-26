@@ -86,6 +86,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           title: "token enviado com sucesso!",
           description: `o seu token de autenticação foi enviado para a caixa de ${email}`,
           action: <ToastAction altText="Entendi">Entendi</ToastAction>,
+          duration: 5000,
         });
       } catch (error) {
         toast({
@@ -93,6 +94,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           title: "ops, algo aconteceu ao enviar o token",
           description: `espere alguns minutos e tente novamente, ou acesse shcd.com.br/support`,
           action: <ToastAction altText="Entendi">Entendi</ToastAction>,
+          duration: 5000,
         });
       }
       setAuthIsLoading(false);
@@ -102,7 +104,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
   //   authenticated user
   const AuthUser = useCallback(
-    async ({ pass_key }: IAuthUser) => {
+    async ({ email, pass_key }: IAuthUser) => {
       setAuthIsLoading(true);
       try {
         const url = `${baseUrl}/auth/user/login`;
@@ -132,8 +134,10 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           });
         }
         toast({
-          title: `bem vindo! ${user.name} ao seu painel`,
+          title: `bem vindo! ${user.full_name}`,
+          description: "aproveito o acesso ao seu painel",
           action: <ToastAction altText="Entendi">Entendi</ToastAction>,
+          duration: 5000,
         });
         apiService.defaults.headers["Authorization"] = `Bearer ${token}`;
         if (token) router.push("/dashboard");
@@ -143,22 +147,23 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           title: "ops, algo aconteceu ao realizar autenticação",
           description: `espere alguns minutos e tente novamente, ou acesse shcd.com.br/support`,
           action: <ToastAction altText="Entendi">Entendi</ToastAction>,
+          duration: 5000,
         });
+        // router.push("/");
       }
       setAuthIsLoading(false);
     },
-    [baseUrl, email, router, toast]
+    [baseUrl, router, toast]
   );
 
   const SignOut = useCallback(() => {
-    if (typeof window !== "undefined") {
-      deleteCookie("shcd.email");
-      deleteCookie("shcd.token");
-      deleteCookie("shcd.user");
-      deleteCookie("shcd.user_id");
-      deleteCookie("shcd.company_id");
-    }
-  }, []);
+    deleteCookie("shcd.email");
+    deleteCookie("shcd.token");
+    deleteCookie("shcd.user");
+    deleteCookie("shcd.user_id");
+    deleteCookie("shcd.company_id");
+    router.push("/");
+  }, [router]);
 
   return (
     <>

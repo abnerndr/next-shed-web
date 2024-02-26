@@ -10,6 +10,7 @@ const nextConfig = {
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
+  images: { unoptimized: true },
 };
 
 module.exports = nextConfig;
