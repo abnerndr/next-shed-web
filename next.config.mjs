@@ -7,6 +7,7 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   output: "export",
+  reactStrictMode: true,
   // distDir: 'out',
   experimental: {
     missingSuspenseWithCSRBailout: false,
