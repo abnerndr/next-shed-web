@@ -7,6 +7,9 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   output: "export",
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
