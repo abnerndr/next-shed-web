@@ -7,18 +7,13 @@ import Image from "next/image";
 import Logo from "@/assets/images/logo-w.svg";
 import { Controller, useForm } from "react-hook-form";
 import { AuthContext } from "@/context/AuthContext";
-import { useSearchParams } from "next/navigation";
-import { useEmailUser } from "@/hooks/useUser";
 
 type FormValues = {
   email: string;
 };
 
 export default function AccessForm() {
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
-  const { AuthUser, SendToken, authIsLoading } = useContext(AuthContext);
-  const userEmail = useEmailUser();
+  const { SendToken, authIsLoading } = useContext(AuthContext);
 
   const {
     handleSubmit,
@@ -33,12 +28,6 @@ export default function AccessForm() {
     },
     [SendToken]
   );
-
-  useEffect(() => {
-    if (token) {
-      AuthUser({ pass_key: token, email: userEmail });
-    }
-  }, [AuthUser, token, userEmail]);
 
   return (
     <>
