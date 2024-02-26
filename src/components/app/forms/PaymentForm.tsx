@@ -22,11 +22,16 @@ import {
 import { CreditCard } from "lucide-react";
 import { FaPix } from "react-icons/fa6";
 import { CgNotes } from "react-icons/cg";
+import InputText from "@/components/common/InputText";
+import { Controller, useForm } from "react-hook-form";
+import { applyCreditCardMask } from "@/utils/helpers/masks/cardcredit";
+import { applyCpfMask } from "@/utils/helpers/masks/document";
 
 export default function PaymentForm() {
+  const { handleSubmit, control, setValue, register } = useForm({});
   return (
     <>
-      <Card className="w-[350px]">
+      <Card className="w-[350px] pt-6">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <Image
             src={Logo.src}
@@ -37,62 +42,72 @@ export default function PaymentForm() {
           />
         </div>
         <CardHeader>
-          <CardTitle> Payment Method</CardTitle>
-          <CardDescription>
-            Add a new payment method to your account.
-          </CardDescription>
+          <CardTitle>Pagamento</CardTitle>
         </CardHeader>
         <CardContent>
           <form>
-            <div className="flex flex-nowrap w-full items-center gap-4 ">
-              <div className="flex space-y-1.5 ">
-                <Button
-                  variant="outline"
-                  className="grid grid-rows-2 gap-3 py-8"
-                >
-                  <CreditCard width={50} height={26} className="-mt-6" />
-                  Card
-                </Button>
-              </div>
-              <div className="flex space-y-1.5 ">
-                <Button
-                  variant="outline"
-                  className="grid grid-rows-2 gap-3 py-8 px-8"
-                >
-                  <FaPix size={16} className="-mt-6 ml-1" />
-                  Pix
-                </Button>
-              </div>
-              <div className="flex space-y-1.5 ">
-                <Button
-                  variant="outline"
-                  className="grid grid-rows-2 gap-3 py-8 px-6"
-                >
-                  <CgNotes size={18} className="-mt-6 ml-4 " />
-                  Ticket
-                </Button>
-              </div>
+            <div className="flex w-full items-center gap-2 px-14">
+            </div>
+            <div>
+              <Label htmlFor="Expires">plano</Label>
+              <Select>
+                <SelectTrigger id="Month">
+                  <SelectValue placeholder="plano" />
+                </SelectTrigger>
+                <SelectContent position="popper">
+                  <SelectItem value="next">plano basico</SelectItem>
+                  <SelectItem value="sveltekit">plano pro</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="pt-5">
-              <div className="flex flex-col space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="First Last" />
+              <div className="sm:col-span-3">
+                <Controller
+                  control={control}
+                  name="full_name"
+                  render={({ field: { onChange, ...rest } }) => (
+                    <InputText
+                      label="nome do titular"
+                      onChange={onChange}
+                      {...rest}
+                      placeholder="joão alves"
+                    />
+                  )}
+                />
               </div>
-              <div className="flex flex-col space-y-2 pt-3">
-                <Label htmlFor="Card number">Card number</Label>
-                <Input id="Card number" placeholder="Card number" />
+              <div className="sm:col-span-3 pt-4">
+                <Controller
+                  control={control}
+                  name="card_number"
+                  render={({ field: { onChange, ...rest } }) => (
+                    <InputText
+                      label="número do cartão"
+                      onChange={(e) => { onChange(applyCreditCardMask(e.target.value)) }}
+                      {...rest}
+                      placeholder="0000 0000 0000 0000"
+                      maxLength={19}
+                    />
+                  )}
+                />
               </div>
-              <div className="flex flex-col space-y-2 pt-3">
-                <Label htmlFor="Document number">Document number</Label>
-                <Input id="Document number" placeholder="Document number" />
+              <div className="flex flex-col space-y-2 pt-4">
+                <div className="sm:col-span-3">
+                  <Controller
+                    control={control}
+                    name="document_number"
+                    render={({ field: { onChange, ...rest } }) => (
+                      <InputText label="cpf do titular" onChange={(e) => { onChange(applyCpfMask(e.target.value)) }} maxLength={14} {...rest} placeholder="000.000.000-00" />
+                    )}
+                  />
+                </div>
               </div>
               <div className="py-2 ">
                 <div className="flex flex-nowrap w-full items-center gap-2">
                   <div>
-                    <Label htmlFor="Expires">Expires</Label>
+                    <Label htmlFor="Expires">mês</Label>
                     <Select>
                       <SelectTrigger id="Month">
-                        <SelectValue placeholder="Month" />
+                        <SelectValue placeholder="mês" />
                       </SelectTrigger>
                       <SelectContent position="popper">
                         <SelectItem value="next">Janeiro</SelectItem>
@@ -111,10 +126,10 @@ export default function PaymentForm() {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="Expires">Year</Label>
+                    <Label htmlFor="Expires">ano</Label>
                     <Select>
                       <SelectTrigger id="Year">
-                        <SelectValue placeholder="Year" />
+                        <SelectValue placeholder="ano" />
                       </SelectTrigger>
                       <SelectContent position="popper">
                         <SelectItem value="1989">1989</SelectItem>
@@ -133,8 +148,8 @@ export default function PaymentForm() {
                     </Select>
                   </div>
                   <div className="">
-                    <Label htmlFor="cvv">CVV</Label>
-                    <Input id="cvv" placeholder="CVV" />
+                    <Label htmlFor="cvv">cvv</Label>
+                    <Input id="cvv" placeholder="cvv" />
                   </div>
                 </div>
               </div>
@@ -142,7 +157,7 @@ export default function PaymentForm() {
           </form>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button className="w-full bg-gray-950 text-gray-50">Finalizar Pagamento</Button>
+          <Button className="w-full bg-gray-950 text-gray-50">finalizar pagamento</Button>
         </CardFooter>
       </Card>
     </>
