@@ -1,20 +1,24 @@
 "use client";
 
 import { AuthContext } from "@/context/AuthContext";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useContext, useEffect } from "react";
 
 export function AuthUser() {
-  const pathname = usePathname();
-  const { AuthUser, authIsLoading } = useContext(AuthContext);
-  const token = pathname.split("/")[2];
+  const query = useParams();
+  console.log(query, "query");
+  // const pathname = usePathname();
+  // console.log(pathname, "pathname");
+  // const { AuthUser, authIsLoading } = useContext(AuthContext);
+  // const token = pathname.split("/")[2];
+  // console.log(token);
 
-  useEffect(() => {
-    if (token) AuthUser({ pass_key: token });
-  }, [AuthUser, token]);
+  // useEffect(() => {
+  //   if (token) AuthUser({ pass_key: token });
+  // }, [AuthUser, token]);
   return (
     <>
-      <div></div>
+      <div>asdasdad</div>
     </>
   );
 }

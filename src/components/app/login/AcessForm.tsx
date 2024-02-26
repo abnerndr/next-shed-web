@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { ButtonLoading } from "../../common/ButtonLoading";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
@@ -7,13 +7,18 @@ import Image from "next/image";
 import Logo from "@/assets/images/logo-w.svg";
 import { Controller, useForm } from "react-hook-form";
 import { AuthContext } from "@/context/AuthContext";
+import { useSearchParams } from "next/navigation";
+import { useEmailUser } from "@/hooks/useUser";
 
 type FormValues = {
   email: string;
 };
 
 export default function AccessForm() {
-  const { SendToken, authIsLoading } = useContext(AuthContext);
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+  const { AuthUser, SendToken, authIsLoading } = useContext(AuthContext);
+  const userEmail = useEmailUser();
 
   const {
     handleSubmit,
@@ -28,6 +33,12 @@ export default function AccessForm() {
     },
     [SendToken]
   );
+
+  useEffect(() => {
+    if (token) {
+      AuthUser({ pass_key: token, email: userEmail });
+    }
+  }, [AuthUser, token, userEmail]);
 
   return (
     <>
@@ -69,6 +80,7 @@ export default function AccessForm() {
                     render={({ field: { onChange, ...rest } }) => (
                       <Input
                         className="bg-gray-50"
+                        inputMode="email"
                         type="email"
                         placeholder="name@example.com"
                         onChange={onChange}

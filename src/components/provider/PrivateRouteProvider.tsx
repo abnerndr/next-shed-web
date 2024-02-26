@@ -1,7 +1,7 @@
 "use client";
 import { APP_ROUTES } from "@/utils/constants/app-routes";
 import { checkUserisAuthenticated } from "@/utils/functions/check-user";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 
 type PrivateRouteProviderProps = {
@@ -13,11 +13,13 @@ const PrivateRouteProvider = ({ children }: PrivateRouteProviderProps) => {
 
   const userIsAuthenticated = checkUserisAuthenticated();
 
+  const pathname = usePathname();
+
   useEffect(() => {
     if (!userIsAuthenticated) {
       push(APP_ROUTES.public.login);
     }
-  }, [push, userIsAuthenticated]);
+  }, [pathname, push, userIsAuthenticated]);
 
   return (
     <>
