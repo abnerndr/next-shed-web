@@ -6,7 +6,8 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
-  output: "export",
+  // output: "export",
+  // distDir: 'out',
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
