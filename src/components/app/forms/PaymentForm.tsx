@@ -55,8 +55,9 @@ export default function PaymentForm() {
                   <SelectValue placeholder="plano" />
                 </SelectTrigger>
                 <SelectContent position="popper">
-                  <SelectItem value="next">plano basico</SelectItem>
-                  <SelectItem value="sveltekit">plano pro</SelectItem>
+                  <SelectItem value="next">plano mensal</SelectItem>
+                  <SelectItem value="sveltekit">plano semestral</SelectItem>
+                  <SelectItem value="svelte">plano anual</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -101,55 +102,38 @@ export default function PaymentForm() {
                   />
                 </div>
               </div>
-              <div className="py-2 ">
+              <div className="py-2">
                 <div className="flex flex-nowrap w-full items-center gap-2">
-                  <div>
-                    <Label htmlFor="Expires">mês</Label>
-                    <Select>
-                      <SelectTrigger id="Month">
-                        <SelectValue placeholder="mês" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="next">Janeiro</SelectItem>
-                        <SelectItem value="sveltekit">Feveiro</SelectItem>
-                        <SelectItem value="astro">Março</SelectItem>
-                        <SelectItem value="nuxt">Abril</SelectItem>
-                        <SelectItem value="nuxt">Maio</SelectItem>
-                        <SelectItem value="nuxt">Junho</SelectItem>
-                        <SelectItem value="nuxt">Julho</SelectItem>
-                        <SelectItem value="nuxt">Agosto</SelectItem>
-                        <SelectItem value="nuxt">Setembro</SelectItem>
-                        <SelectItem value="nuxt">Otubro</SelectItem>
-                        <SelectItem value="nuxt">Novembro</SelectItem>
-                        <SelectItem value="nuxt">Dezembro</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <div className="flex flex-col space-y-2 pt-4">
+                    <div className="sm:col-span-3">
+                      <Controller
+                        control={control}
+                        name="mouth"
+                        render={({ field: { onChange, ...rest } }) => (
+                          <InputText label="mês" onChange={onChange} {...rest} placeholder="00" maxLength={2} />
+                        )}
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <Label htmlFor="Expires">ano</Label>
-                    <Select>
-                      <SelectTrigger id="Year">
-                        <SelectValue placeholder="ano" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="1989">1989</SelectItem>
-                        <SelectItem value="1990">1990</SelectItem>
-                        <SelectItem value="1991">1991</SelectItem>
-                        <SelectItem value="1992">1992</SelectItem>
-                        <SelectItem value="1993">1993</SelectItem>
-                        <SelectItem value="1994">1994</SelectItem>
-                        <SelectItem value="1995">1995</SelectItem>
-                        <SelectItem value="1996">1996</SelectItem>
-                        <SelectItem value="1997">1997</SelectItem>
-                        <SelectItem value="1998">1998</SelectItem>
-                        <SelectItem value="1999">1999</SelectItem>
-                        <SelectItem value="2000">2000</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <div className="flex flex-nowrap w-full items-center gap-2">
+                    <div className="flex flex-col space-y-2 pt-4">
+                      <Controller
+                        control={control}
+                        name="year"
+                        render={({ field: { onChange, ...rest } }) => (
+                          <InputText label="ano" onChange={onChange} maxLength={2} {...rest} placeholder="00" />
+                        )}
+                      />
+                    </div>
                   </div>
-                  <div className="">
-                    <Label htmlFor="cvv">cvv</Label>
-                    <Input id="cvv" placeholder="cvv" />
+                  <div className="flex flex-col space-y-2 pt-4">
+                    <Controller
+                      control={control}
+                      name="cvv"
+                      render={({ field: { onChange, ...rest } }) => (
+                        <InputText label="cvv" onChange={onChange} maxLength={4} {...rest} placeholder="000" />
+                      )}
+                    />
                   </div>
                 </div>
               </div>
