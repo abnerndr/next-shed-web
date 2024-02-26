@@ -1,15 +1,16 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import type { Metadata } from "next";
 import "@/assets/styles/globals.css";
 import { ThemeProvider } from "./common/ThemeProvider";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { checkIsPublicRoute } from "@/utils/functions/check-route";
 import PrivateRouteProvider from "./provider/PrivateRouteProvider";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ToastProvider } from "@radix-ui/react-toast";
 import Provider from "@/app/provider";
+import { checkUserisAuthenticated } from "@/utils/functions/check-user";
 
 interface ILayout {
   children: ReactNode;
@@ -27,7 +28,15 @@ export const fontSans = FontSans({
 
 function Layout({ children }: ILayout) {
   const pathname = usePathname();
+  const route = useRouter();
   const isPublic = checkIsPublicRoute(pathname);
+  const isAuth = checkUserisAuthenticated();
+
+  useEffect(() => {
+    if (pathname === "/" && isAuth) {
+      route.push("/dashboard");
+    }
+  }, [isAuth, isPublic, pathname, route]);
   return (
     <>
       <html lang="en">

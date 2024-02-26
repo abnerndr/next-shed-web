@@ -1,102 +1,43 @@
 "use client";
-import { useCallback, useContext, useEffect } from "react";
-import { ButtonLoading } from "../../common/ButtonLoading";
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
 import Image from "next/image";
-import Logo from "@/assets/images/logo-w.svg";
-import { Controller, useForm } from "react-hook-form";
-import { AuthContext } from "@/context/AuthContext";
-
-type FormValues = {
-  email: string;
-};
+import Logo from "@/assets/images/logow.png";
+import LoginForm from "./components/LoginForm";
 
 export default function AccessForm() {
-  const { SendToken, authIsLoading } = useContext(AuthContext);
-
-  const {
-    handleSubmit,
-    control,
-    setValue,
-    formState: { errors, isValid },
-  } = useForm<FormValues>({});
-
-  const onSubmit = useCallback(
-    (formData: FormValues) => {
-      SendToken({ email: formData.email });
-    },
-    [SendToken]
-  );
-
   return (
     <>
-      <div className="relative h-screen isolate bg-white">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-          <div className="md:ml-72 md:py-20 lg:-ml-6 lg:py-40">
-            <Image src={Logo.src} alt={"SCHD"} width={150} height={90} />
-            <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-              <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-zinc-900 ring-1 ring-gray-900/10 lg:w-1/2">
-                <div className="py-96 mt-64 p-20">
-                  <span className="text-gray-300">
-                    “Aqui temos um serviço de agendamento personalisado para
-                    você, onde você pode ter todos serviços que vamos
-                    disponibilizar o melhores serviço para você a partir do seu
-                    gosto.”
+      <div className="relative w-full h-screen bg-white">
+        <div className="flex flex-col lg:flex-row lg:items-center">
+          <div className="w-full md:lg:w-[55%] lg:block hidden">
+            <div className="w-full h-screen bg-zinc-900">
+              <div className="flex flex-col justify-between h-full">
+                <div className="p-8">
+                  <Image
+                    src={Logo.src}
+                    alt="SHCD Logo"
+                    width={100}
+                    height={100}
+                  />
+                </div>
+                <div className="flex items-end pb-8 px-8 w-[90%]">
+                  <span className="text-md text-gray-50 font-semibold">
+                    Acme Inc “This library has saved me countless hours of work
+                    and helped me deliver stunning designs to my clients faster
+                    than ever before.”
+                    <br />
+                    <span className="text-xs text-gray-100 font-normal">
+                      Sofia Davis
+                    </span>
                   </span>
                 </div>
               </div>
             </div>
           </div>
-          <form
-            className="pb-24 pt-20 sm:pb-32 lg:px-32 lg:py-64"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className="lg:ml-80 w-full max-w-xl lg:mr-0 lg:2-full">
-              <div className="flex flex-col px- mt-auto justify-center text-center">
-                <div className="pb-2">
-                  <h3 className="font-bold text-3xl text-black">
-                    Acesse sua conta
-                  </h3>
-                  <p className="text-gray-500 text-sm text-center py-10">
-                    Use o e-mail cadastrado para receber o token de acesso
-                  </p>
-                </div>
-                <div className="w-full pb-2 ">
-                  <Controller
-                    name="email"
-                    control={control}
-                    render={({ field: { onChange, ...rest } }) => (
-                      <Input
-                        className="bg-gray-50"
-                        inputMode="email"
-                        type="email"
-                        placeholder="name@example.com"
-                        onChange={onChange}
-                        {...rest}
-                      />
-                    )}
-                  />
-                </div>
-                <div className="py-5 ">
-                  {!authIsLoading ? (
-                    <Button
-                      className="w-full bg-gray-950 text-gray-50 hover:bg-gray-600"
-                      type="submit"
-                    >
-                      Entrar
-                    </Button>
-                  ) : (
-                    <ButtonLoading />
-                  )}
-                </div>
-                <p className="text-gray-500 text-xs">
-                  Ao clicar em entrar, você concorda com nossos Termos de
-                  Serviço e Política de Privacidade.
-                </p>
-              </div>
+          <div className="lg:w-[45%] w-full mt-72 lg:mt-0">
+            <div className="w-full px-4 sm:px-40 md:px-40 lg:px-56 xl:px-96">
+              <LoginForm />
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>

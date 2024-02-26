@@ -7,5 +7,9 @@ import { DashboardLayout } from "./dashboard/DashboardLayout";
 export function AppMain() {
   const isAuth = checkUserisAuthenticated();
 
-  return <>{!isAuth ? <AccessForm /> : <DashboardLayout />}</>;
+  return (
+    <>
+      <AccessForm />
+    </>
+  );
 }

@@ -16,6 +16,7 @@ const PrivateRouteProvider = ({ children }: PrivateRouteProviderProps) => {
   const pathname = usePathname();
 
   useEffect(() => {
+    console.log(pathname, "pathname");
     if (!userIsAuthenticated) {
       push(APP_ROUTES.public.login);
     }
