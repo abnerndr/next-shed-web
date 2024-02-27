@@ -3,13 +3,12 @@ const nextConfig = {
   env: {
     base_url: process.env.API_URL,
   },
-  compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
-  },
+  // compiler: {
+  //   removeConsole: process.env.NODE_ENV === "production",
+  // },
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
-  images: { unoptimized: true },
 };
 
 export default nextConfig;
