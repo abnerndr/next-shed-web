@@ -34,7 +34,7 @@ export default function AccessForm() {
             </div>
           </div>
           <div className="lg:w-[45%] w-full mt-72 lg:mt-0">
-            <div className="w-full px-4 sm:px-40 md:px-40 lg:px-56 xl:px-96">
+            <div className="w-full px-4 sm:px-40 md:px-40 lg:px-20 xl:px-60">
               <LoginForm />
             </div>
           </div>

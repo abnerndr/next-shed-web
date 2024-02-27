@@ -37,5 +37,6 @@ next-env.d.ts
 
 # more
 .env
+yarn.lock
 package-lock.json
 out

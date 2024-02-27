@@ -1,16 +1,18 @@
 "use client";
+import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 import type { Metadata } from "next";
-import "@/assets/styles/globals.css";
-import { ThemeProvider } from "./common/ThemeProvider";
-import { usePathname, useRouter } from "next/navigation";
+import { ToastContainer } from "react-toastify";
+import { Inter as FontSans } from "next/font/google";
+
 import { checkIsPublicRoute } from "@/utils/functions/check-route";
 import PrivateRouteProvider from "./provider/PrivateRouteProvider";
-import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { ToastProvider } from "@radix-ui/react-toast";
 import Provider from "@/app/provider";
 import { checkUserisAuthenticated } from "@/utils/functions/check-user";
+
+import "@/assets/styles/globals.css";
+import "react-toastify/dist/ReactToastify.css";
 
 interface ILayout {
   children: ReactNode;
@@ -72,6 +74,15 @@ function Layout({ children }: ILayout) {
             {!isPublic && (
               <PrivateRouteProvider>{children}</PrivateRouteProvider>
             )}
+            <ToastContainer
+              hideProgressBar={true}
+              closeOnClick
+              draggable
+              closeButton
+              position="bottom-right"
+              rtl={false}
+              style={{ width: "500px" }}
+            />
           </Provider>
         </body>
       </html>

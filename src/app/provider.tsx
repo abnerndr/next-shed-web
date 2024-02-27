@@ -1,5 +1,4 @@
 import { ThemeProvider } from "@/components/common/ThemeProvider";
-import { Toaster } from "@/components/ui/toaster";
 import AuthProvider from "@/context/AuthContext";
 import { ReactNode } from "react";
 
@@ -13,7 +12,6 @@ export default function Provider({ children }: { children: ReactNode }) {
           enableSystem
           disableTransitionOnChange
         >
-          <Toaster />
           {children}
         </ThemeProvider>
       </AuthProvider>

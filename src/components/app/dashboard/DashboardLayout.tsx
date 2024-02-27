@@ -1,10 +1,33 @@
+"use client";
 import Image from "next/image";
 import { BellIcon } from "lucide-react";
 import { DropdownProfile } from "./DropdownProfile";
-
 import Logo from "@/assets/images/icon.png";
+import { useCallback } from "react";
+import ButtonMain from "@/components/common/ButtonMain";
+
+import { toast } from "react-toastify";
 
 export function DashboardLayout() {
+  const CloseButton = ({ closeToast }: any) => (
+    <ButtonMain className="bg-zinc-900" onClick={closeToast}>
+      ok
+    </ButtonMain>
+  );
+
+  const title = ({ title, description }: any) => {
+    return (
+      <div>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </div>
+    );
+  };
+  const handleToast = useCallback(() => {
+    toast(title({ title: "asdasdad", description: "adasdsadd" }), {
+      closeButton: CloseButton,
+    });
+  }, []);
   return (
     <>
       <div className="flex min-h-full flex-col">
@@ -23,7 +46,9 @@ export function DashboardLayout() {
                 className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-300"
               >
                 <span className="sr-only">View notifications</span>
-                <BellIcon className="h-5 w-5" aria-hidden="true" />
+                <ButtonMain onClick={handleToast} type="button">
+                  <BellIcon className="h-5 w-5" aria-hidden="true" />
+                </ButtonMain>
               </button>
               <div>
                 <DropdownProfile />
