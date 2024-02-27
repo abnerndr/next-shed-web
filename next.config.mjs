@@ -6,11 +6,10 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
-  output: "export",
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
   images: { unoptimized: true },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
