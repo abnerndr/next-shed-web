@@ -6,8 +6,6 @@ import { applyCpfMask } from "@/utils/helpers/masks/document";
 import { formatAllPhone } from "@/utils/helpers/masks/phone";
 import ButtonMain from "@/components/common/ButtonMain";
 import { ArrowRightIcon } from "lucide-react";
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@radix-ui/react-label";
 
 export function UserForm() {
   const { handleSubmit, control, setValue, register } = useForm({});
@@ -15,7 +13,7 @@ export function UserForm() {
     <>
       <div className="max-w-7xl mx-auto mt-44">
         <div className="flex flex-row gap-x-5">
-          <div className="bg-gray-50 p-6 rounded-xl">
+          <div className="bg-gray-50 p-6 rounded-xl w-1/2">
             <Step.ModelTwo id={2} />
           </div>
           <div className="bg-gray-50 p-6 rounded-xl w-full">
@@ -78,10 +76,6 @@ export function UserForm() {
                   />
                 </div>
                 <AddressForm control={control} setValue={setValue} />
-              </div>
-              <div className="flex items-center space-x-2 pt-4">
-                <Switch id="airplane-mode" />
-                <Label htmlFor="airplane-mode" className="text-sm font-medium">ativar administrador</Label>
               </div>
               <div className="mt-12 justify-end items-center flex w-full">
                 <div className="w-[18%]">

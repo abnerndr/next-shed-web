@@ -1,3 +1,4 @@
+"use client";
 import ButtonMain from '@/components/common/ButtonMain';
 import { ArrowRightIcon, CheckIcon, CheckSquareIcon, Plus, XIcon } from 'lucide-react';
 import React, { useState } from 'react';
@@ -13,12 +14,12 @@ function SelectModal() {
     <div>
       <div className="bg-white shadow sm:rounded-lg">
 
-        <div className="relative px-0  p-4 w-full max-w-md max-h-full">
-          <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Opções de Planos
-            </h3>
-          </div>
+        <div className="relative flex flex-col pt-11  w-full max-w-md max-h-full">
+
+          <h3 className="text-lg px-6 font-semibold text-gray-900 dark:text-white flex items-center">
+            Opções de Planos
+          </h3>
+
           <div className="p-4 md:p-5">
             <p className="text-gray-500 dark:text-gray-400 mb-4">Selecione o melhor plano para sua empresa</p>
             <ul className="space-y-4 mb-4">
@@ -69,12 +70,7 @@ function SelectModal() {
                 </label>
               </li>
             </ul>
-            <div className="w-[full]">
-              <ButtonMain className="text-sm pr-2 " variant={"default"}>
-                próximo <ArrowRightIcon className="w-4 h-4 ml-1" />
-              </ButtonMain>
-            </div>
-            <div className="w-[full] pt-2">
+            <div className="w-[full] pt-5">
               <ButtonMain className="text-sm pr-2 w-full" variant={"outline"} size={'default'} onClick={toggleModal}>
                 mais informações  <Plus className="w-4 h-4 ml-1" />
               </ButtonMain>
@@ -124,7 +120,7 @@ function SelectModal() {
                   </li>
                   <hr className="border-gray-200" />
                   <li>
-                    <div className="px-4 py-5 sm:p-6">
+                    <div className="px-4 py-4 sm:p-6">
                       <h3 className="text-base font-semibold leading-6 text-gray-900">Plano Pro</h3>
                       <div className="mt-2 max-w-xl text-sm text-gray-500">
                         <ul>

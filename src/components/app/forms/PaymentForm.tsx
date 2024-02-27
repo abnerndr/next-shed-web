@@ -8,142 +8,141 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import Image from "next/image";
-import Logo from "@/assets/images/logo-svg.svg";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { CreditCard } from "lucide-react";
-import { FaPix } from "react-icons/fa6";
-import { CgNotes } from "react-icons/cg";
+
 import InputText from "@/components/common/InputText";
 import { Controller, useForm } from "react-hook-form";
 import { applyCreditCardMask } from "@/utils/helpers/masks/cardcredit";
 import { applyCpfMask } from "@/utils/helpers/masks/document";
+import Visa from "@/assets/images/visa.png"
+import Master from "@/assets/images/master.png"
+import PayPal from "@/assets/images/paypal.png"
+import ButtonMain from "@/components/common/ButtonMain";
+import Image from "next/image";
+import DynamicSelect from "@/components/common/SelectForm";
 
 export default function PaymentForm() {
-  const { handleSubmit, control, setValue, register } = useForm({});
+  const { handleSubmit, control } = useForm({});
+
+  const handleFormSubmit = (data: any) => {
+
+    console.log(data);
+  }
+
+  const mouth = [
+    { value: "janeiro", label: "janeiro" },
+    { value: "fevereiro", label: "fevereiro" },
+    { value: "março", label: "março" },
+    { value: "abril", label: "abril" },
+    { value: "maio", label: "maio" },
+    { value: "junho", label: "junho" },
+    { value: "julho", label: "julho" },
+    { value: "agosto", label: "agosto" },
+    { value: "setembro", label: "setembro" },
+    { value: "outubro", label: "outubro" },
+    { value: "novembro", label: "novembro" },
+    { value: "dezembro", label: "dezembro" },
+  ];
+
+  const year = [
+    { value: "2024", label: "2024" },
+    { value: "2025", label: "2025" },
+    { value: "2026", label: "2026" },
+    { value: "2027", label: "2027" },
+    { value: "2028", label: "2028" },
+    { value: "2029", label: "2029" },
+    { value: "2030", label: "2030" },
+    { value: "2031", label: "2031" },
+    { value: "2032", label: "2032" },
+    { value: "2033", label: "2033" },
+    { value: "2034", label: "2034" },
+    { value: "2035", label: "2035" },
+  ];
+
   return (
-    <>
-      <Card className="w-[350px] pt-6">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <Image
-            src={Logo.src}
-            alt={"SCHD"}
-            width={120}
-            height={90}
-            className="pt-4 ml-28"
-          />
-        </div>
+    <Card className="w-[340px] pt-6">
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
         <CardHeader>
           <CardTitle>Pagamento</CardTitle>
+          <CardDescription>Adicione uma nova forma de pagamento à sua conta.</CardDescription>
+          <div className="flex grid-cols-2 gap-3 pt-2">
+            <ButtonMain className="border-2 w-32 h-20" variant={"outline"} size={"icon"}>
+              <Image src={Visa} alt={"VISA"} width={38} height={12} />
+            </ButtonMain>
+            <ButtonMain className="border-2 w-32 h-20" variant={"outline"} size={"icon"}>
+              <Image src={Master} alt={"MASTER"} width={38} height={12} />
+            </ButtonMain>
+            <ButtonMain className="border-2 w-32 h-20" variant={"outline"} size={"icon"} disabled>
+              <Image src={PayPal} alt={"PAYPAL"} width={28} height={12} />
+            </ButtonMain>
+          </div>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="flex w-full items-center gap-2 px-14">
-            </div>
-            <div>
-              <Label htmlFor="Expires">plano</Label>
-              <Select>
-                <SelectTrigger id="Month">
-                  <SelectValue placeholder="plano" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  <SelectItem value="next">plano mensal</SelectItem>
-                  <SelectItem value="sveltekit">plano semestral</SelectItem>
-                  <SelectItem value="svelte">plano anual</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="pt-5">
-              <div className="sm:col-span-3">
-                <Controller
-                  control={control}
-                  name="full_name"
-                  render={({ field: { onChange, ...rest } }) => (
-                    <InputText
-                      label="nome do titular"
-                      onChange={onChange}
-                      {...rest}
-                      placeholder="joão alves"
-                    />
-                  )}
-                />
-              </div>
-              <div className="sm:col-span-3 pt-4">
-                <Controller
-                  control={control}
-                  name="card_number"
-                  render={({ field: { onChange, ...rest } }) => (
-                    <InputText
-                      label="número do cartão"
-                      onChange={(e) => { onChange(applyCreditCardMask(e.target.value)) }}
-                      {...rest}
-                      placeholder="0000 0000 0000 0000"
-                      maxLength={19}
-                    />
-                  )}
-                />
-              </div>
-              <div className="flex flex-col space-y-2 pt-4">
-                <div className="sm:col-span-3">
-                  <Controller
-                    control={control}
-                    name="document_number"
-                    render={({ field: { onChange, ...rest } }) => (
-                      <InputText label="cpf do titular" onChange={(e) => { onChange(applyCpfMask(e.target.value)) }} maxLength={14} {...rest} placeholder="000.000.000-00" />
-                    )}
+          <div className="pt-2">
+            <div className="sm:col-span-3">
+              <Controller
+                control={control}
+                name="full_name"
+                render={({ field: { onChange, ...rest } }) => (
+                  <InputText
+                    label="nome do titular"
+                    onChange={onChange}
+                    {...rest}
+                    placeholder="joão alves"
                   />
+                )}
+              />
+            </div>
+            <div className="sm:col-span-3 pt-2">
+              <Controller
+                control={control}
+                name="card_number"
+                render={({ field: { onChange, ...rest } }) => (
+                  <InputText
+                    label="número do cartão"
+                    onChange={(e) => { onChange(applyCreditCardMask(e.target.value)) }}
+                    {...rest}
+                    placeholder="0000 0000 0000 0000"
+                    maxLength={19}
+                  />
+                )}
+              />
+            </div>
+            <div className="pt-1">
+              <div className="flex flex-nowrap w-full items-center gap-2">
+                <div className="flex flex-col space-y-1 pt-2">
+                  <label className="text-xs font-semibold ">mês</label>
+                  <DynamicSelect options={mouth} placeholder="selecione o mês" />
                 </div>
-              </div>
-              <div className="py-2">
                 <div className="flex flex-nowrap w-full items-center gap-2">
-                  <div className="flex flex-col space-y-2 pt-4">
-                    <div className="sm:col-span-3">
-                      <Controller
-                        control={control}
-                        name="mouth"
-                        render={({ field: { onChange, ...rest } }) => (
-                          <InputText label="mês" onChange={onChange} {...rest} placeholder="00" maxLength={2} />
-                        )}
-                      />
-                    </div>
+                  <div className="flex flex-col space-y-1 pt-2">
+                    <label className="text-xs font-semibold ">ano</label>
+                    <DynamicSelect options={year} placeholder="selecione o ano" />
                   </div>
-                  <div className="flex flex-nowrap w-full items-center gap-2">
-                    <div className="flex flex-col space-y-2 pt-4">
-                      <Controller
-                        control={control}
-                        name="year"
-                        render={({ field: { onChange, ...rest } }) => (
-                          <InputText label="ano" onChange={onChange} maxLength={2} {...rest} placeholder="00" />
-                        )}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-2 pt-4">
+                </div>
+                <div className="flex flex-nowrap items-center ">
+                  <div className="flex flex-col space-y-1 pt-2 ">
                     <Controller
                       control={control}
                       name="cvv"
                       render={({ field: { onChange, ...rest } }) => (
-                        <InputText label="cvv" onChange={onChange} maxLength={4} {...rest} placeholder="000" />
+                        <InputText
+                          label="cvv"
+                          onChange={onChange}
+                          {...rest}
+                          placeholder="000"
+                        />
                       )}
                     />
                   </div>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button className="w-full bg-gray-950 text-gray-50">finalizar pagamento</Button>
+        <CardFooter className="flex justify-between pt-1">
+          <Button type="submit" className="w-full bg-gray-950 text-gray-50">validar pagamento</Button>
         </CardFooter>
-      </Card>
-    </>
+      </form>
+    </Card>
   );
 }
