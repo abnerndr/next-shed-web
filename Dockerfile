@@ -4,11 +4,10 @@ WORKDIR /app
 
 COPY package.json ./
 
-RUN npm i -g yarn
-RUN yarn install --force
+RUN npm install --force
 
 COPY . .
 
-RUN yarn build
+RUN npm run build
 
-CMD ["yarn", "start"]
+CMD ["npm", "run", "start"]
