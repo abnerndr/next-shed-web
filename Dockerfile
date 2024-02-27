@@ -4,7 +4,8 @@ WORKDIR /app
 
 COPY package.json ./
 
-RUN yarn install
+RUN npm i -g yarn
+RUN yarn install --force
 
 COPY . .
 
