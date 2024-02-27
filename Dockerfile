@@ -1,0 +1,15 @@
+FROM node:18-alphine
+
+WORKDIR /app
+
+COPY package.json ./
+
+RUN yarn install
+
+COPY . .
+
+RUN yarn build
+
+COPY .next ./.next
+
+CMD ["yarn", "start"]
