@@ -1,13 +1,15 @@
 FROM node:20-alpine
 
+RUN npm install -g yarn
+
 WORKDIR /app
 
-COPY package.json ./
+COPY package.json yarn.lock ./
 
-RUN npm install --force
+RUN yarn install
 
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
-CMD ["npm", "run", "start"]
+CMD ["yarn", "start"]
