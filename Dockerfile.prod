@@ -6,7 +6,9 @@ COPY package.json .
 
 COPY . .
 
-RUN yarn install --force
+RUN rm -rf node_modules yarn.lock yarn-error.log
+
+RUN yarn install
 
 RUN yarn build
 
