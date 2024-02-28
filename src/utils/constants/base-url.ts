@@ -1,3 +1,3 @@
-const BASE_URL = process.env.base_url
+const BASE_URL = process.env.API_URL
 
 export { BASE_URL }
