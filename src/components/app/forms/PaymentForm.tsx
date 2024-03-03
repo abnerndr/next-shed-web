@@ -8,143 +8,141 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
+import InputText from "@/components/common/InputText";
+import { Controller, useForm } from "react-hook-form";
+import { applyCreditCardMask } from "@/utils/helpers/masks/cardcredit";
+import { applyCpfMask } from "@/utils/helpers/masks/document";
+import Visa from "@/assets/images/visa.png"
+import Master from "@/assets/images/master.png"
+import PayPal from "@/assets/images/paypal.png"
+import ButtonMain from "@/components/common/ButtonMain";
 import Image from "next/image";
-import Logo from "@/assets/images/logo-svg.svg";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { CreditCard } from "lucide-react";
-import { FaPix } from "react-icons/fa6";
-import { CgNotes } from "react-icons/cg";
+import DynamicSelect from "@/components/common/SelectForm";
 
 export default function PaymentForm() {
+  const { handleSubmit, control } = useForm({});
+
+  const handleFormSubmit = (data: any) => {
+
+    console.log(data);
+  }
+
+  const mouth = [
+    { value: "janeiro", label: "janeiro" },
+    { value: "fevereiro", label: "fevereiro" },
+    { value: "março", label: "março" },
+    { value: "abril", label: "abril" },
+    { value: "maio", label: "maio" },
+    { value: "junho", label: "junho" },
+    { value: "julho", label: "julho" },
+    { value: "agosto", label: "agosto" },
+    { value: "setembro", label: "setembro" },
+    { value: "outubro", label: "outubro" },
+    { value: "novembro", label: "novembro" },
+    { value: "dezembro", label: "dezembro" },
+  ];
+
+  const year = [
+    { value: "2024", label: "2024" },
+    { value: "2025", label: "2025" },
+    { value: "2026", label: "2026" },
+    { value: "2027", label: "2027" },
+    { value: "2028", label: "2028" },
+    { value: "2029", label: "2029" },
+    { value: "2030", label: "2030" },
+    { value: "2031", label: "2031" },
+    { value: "2032", label: "2032" },
+    { value: "2033", label: "2033" },
+    { value: "2034", label: "2034" },
+    { value: "2035", label: "2035" },
+  ];
+
   return (
-    <>
-      <Card className="w-[350px]">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <Image
-            src={Logo.src}
-            alt={"SCHD"}
-            width={120}
-            height={90}
-            className="pt-4 ml-28"
-          />
-        </div>
+    <Card className="w-[340px] pt-6">
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
         <CardHeader>
-          <CardTitle> Payment Method</CardTitle>
-          <CardDescription>
-            Add a new payment method to your account.
-          </CardDescription>
+          <CardTitle>Pagamento</CardTitle>
+          <CardDescription>Adicione uma nova forma de pagamento à sua conta.</CardDescription>
+          <div className="flex grid-cols-2 gap-3 pt-2">
+            <ButtonMain className="border-2 w-32 h-20" variant={"outline"} size={"icon"}>
+              <Image src={Visa} alt={"VISA"} width={38} height={12} />
+            </ButtonMain>
+            <ButtonMain className="border-2 w-32 h-20" variant={"outline"} size={"icon"}>
+              <Image src={Master} alt={"MASTER"} width={38} height={12} />
+            </ButtonMain>
+            <ButtonMain className="border-2 w-32 h-20" variant={"outline"} size={"icon"} disabled>
+              <Image src={PayPal} alt={"PAYPAL"} width={28} height={12} />
+            </ButtonMain>
+          </div>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="flex flex-nowrap w-full items-center gap-4 ">
-              <div className="flex space-y-1.5 ">
-                <Button
-                  variant="outline"
-                  className="grid grid-rows-2 gap-3 py-8"
-                >
-                  <CreditCard width={50} height={26} className="-mt-6" />
-                  Card
-                </Button>
-              </div>
-              <div className="flex space-y-1.5 ">
-                <Button
-                  variant="outline"
-                  className="grid grid-rows-2 gap-3 py-8 px-8"
-                >
-                  <FaPix size={16} className="-mt-6 ml-1" />
-                  Pix
-                </Button>
-              </div>
-              <div className="flex space-y-1.5 ">
-                <Button
-                  variant="outline"
-                  className="grid grid-rows-2 gap-3 py-8 px-6"
-                >
-                  <CgNotes size={18} className="-mt-6 ml-4 " />
-                  Ticket
-                </Button>
-              </div>
+          <div className="pt-2">
+            <div className="sm:col-span-3">
+              <Controller
+                control={control}
+                name="full_name"
+                render={({ field: { onChange, ...rest } }) => (
+                  <InputText
+                    label="nome do titular"
+                    onChange={onChange}
+                    {...rest}
+                    placeholder="joão alves"
+                  />
+                )}
+              />
             </div>
-            <div className="pt-5">
-              <div className="flex flex-col space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="First Last" />
-              </div>
-              <div className="flex flex-col space-y-2 pt-3">
-                <Label htmlFor="Card number">Card number</Label>
-                <Input id="Card number" placeholder="Card number" />
-              </div>
-              <div className="flex flex-col space-y-2 pt-3">
-                <Label htmlFor="Document number">Document number</Label>
-                <Input id="Document number" placeholder="Document number" />
-              </div>
-              <div className="py-2 ">
+            <div className="sm:col-span-3 pt-2">
+              <Controller
+                control={control}
+                name="card_number"
+                render={({ field: { onChange, ...rest } }) => (
+                  <InputText
+                    label="número do cartão"
+                    onChange={(e) => { onChange(applyCreditCardMask(e.target.value)) }}
+                    {...rest}
+                    placeholder="0000 0000 0000 0000"
+                    maxLength={19}
+                  />
+                )}
+              />
+            </div>
+            <div className="pt-1">
+              <div className="flex flex-nowrap w-full items-center gap-2">
+                <div className="flex flex-col space-y-1 pt-2">
+                  <label className="text-xs font-semibold ">mês</label>
+                  <DynamicSelect options={mouth} placeholder="selecione o mês" />
+                </div>
                 <div className="flex flex-nowrap w-full items-center gap-2">
-                  <div>
-                    <Label htmlFor="Expires">Expires</Label>
-                    <Select>
-                      <SelectTrigger id="Month">
-                        <SelectValue placeholder="Month" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="next">Janeiro</SelectItem>
-                        <SelectItem value="sveltekit">Feveiro</SelectItem>
-                        <SelectItem value="astro">Março</SelectItem>
-                        <SelectItem value="nuxt">Abril</SelectItem>
-                        <SelectItem value="nuxt">Maio</SelectItem>
-                        <SelectItem value="nuxt">Junho</SelectItem>
-                        <SelectItem value="nuxt">Julho</SelectItem>
-                        <SelectItem value="nuxt">Agosto</SelectItem>
-                        <SelectItem value="nuxt">Setembro</SelectItem>
-                        <SelectItem value="nuxt">Otubro</SelectItem>
-                        <SelectItem value="nuxt">Novembro</SelectItem>
-                        <SelectItem value="nuxt">Dezembro</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <div className="flex flex-col space-y-1 pt-2">
+                    <label className="text-xs font-semibold ">ano</label>
+                    <DynamicSelect options={year} placeholder="selecione o ano" />
                   </div>
-                  <div>
-                    <Label htmlFor="Expires">Year</Label>
-                    <Select>
-                      <SelectTrigger id="Year">
-                        <SelectValue placeholder="Year" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="1989">1989</SelectItem>
-                        <SelectItem value="1990">1990</SelectItem>
-                        <SelectItem value="1991">1991</SelectItem>
-                        <SelectItem value="1992">1992</SelectItem>
-                        <SelectItem value="1993">1993</SelectItem>
-                        <SelectItem value="1994">1994</SelectItem>
-                        <SelectItem value="1995">1995</SelectItem>
-                        <SelectItem value="1996">1996</SelectItem>
-                        <SelectItem value="1997">1997</SelectItem>
-                        <SelectItem value="1998">1998</SelectItem>
-                        <SelectItem value="1999">1999</SelectItem>
-                        <SelectItem value="2000">2000</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="">
-                    <Label htmlFor="cvv">CVV</Label>
-                    <Input id="cvv" placeholder="CVV" />
+                </div>
+                <div className="flex flex-nowrap items-center ">
+                  <div className="flex flex-col space-y-1 pt-2 ">
+                    <Controller
+                      control={control}
+                      name="cvv"
+                      render={({ field: { onChange, ...rest } }) => (
+                        <InputText
+                          label="cvv"
+                          onChange={onChange}
+                          {...rest}
+                          placeholder="000"
+                        />
+                      )}
+                    />
                   </div>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button className="w-full bg-gray-950 text-gray-50">Finalizar Pagamento</Button>
+        <CardFooter className="flex justify-between pt-1">
+          <Button type="submit" className="w-full bg-gray-950 text-gray-50">validar pagamento</Button>
         </CardFooter>
-      </Card>
-    </>
+      </form>
+    </Card>
   );
 }

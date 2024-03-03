@@ -1,19 +1,22 @@
 import { Step } from "@/components/common/Steps";
 import PlanPrice from "../../forms/PlanPrice";
 import PaymentForm from "../../forms/PaymentForm";
+import Coupon from "@/components/common/ Coupon";
 
 export function SubscriptionForm() {
   return (
     <>
       <div className="max-w-7xl mx-auto mt-44">
         <div className="flex flex-row gap-x-5">
-          <div className="bg-gray-50 p-6 rounded-xl">
+          <div className="bg-gray-50 p-6 rounded-xl w-1/2">
             <Step.ModelTwo id={3} />
+            <div className="pt-10">
+            <Coupon title={'Cupom de desconto'} description={"Aplique aqui seu cupom de desconto"}/>
+            </div>
           </div>
-          <div className="bg-gray-50 p-6 rounded-xl">
             <div className="bg-gray-50 p-6 rounded-xl w-full">
               <h3 className="text-md font-bold text-zinc-800">
-                Selecione sua assinature"
+                Selecione sua assinatura
               </h3>
               <p className="text-sm text-zinc-500">
                 Selecione as opções de sua assinatura e faça o pagamento do
@@ -32,7 +35,6 @@ export function SubscriptionForm() {
             </div>
           </div>
         </div>
-      </div>
     </>
   );
 }
