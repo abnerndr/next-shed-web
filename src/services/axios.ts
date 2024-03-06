@@ -5,7 +5,7 @@ export const getAPIClient = () => {
     const token = getCookie('shcd.token')
 
     const api = axios.create({
-        baseURL: process.env.API_URL
+        baseURL: process.env.BASE_URL
     })
 
     api.interceptors.request.use((config) => {

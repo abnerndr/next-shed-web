@@ -4,7 +4,7 @@ import { Button, ButtonProps } from "../ui/button";
 import { Link } from "lucide-react";
 
 interface IButtonMain extends ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonChild: ReactNode;
+  buttonChild?: ReactNode;
   href: string;
 }
 

@@ -74,7 +74,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     async ({ email }: ISendToken) => {
       setAuthIsLoading(true);
       try {
-        const url = `${baseUrl}/auth/send/token`;
+        const url = `/auth/send/token`;
         await apiService.post(url, { email });
         if (typeof window !== "undefined") {
           setCookie("shcd.email", JSON.stringify(email), {
@@ -99,7 +99,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       }
       setAuthIsLoading(false);
     },
-    [baseUrl, toast]
+    [toast]
   );
 
   //   authenticated user
@@ -107,10 +107,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     async ({ email, pass_key }: IAuthUser) => {
       setAuthIsLoading(true);
       try {
-        const url = `${baseUrl}/auth/user/login`;
         const {
           data: { user, token },
-        } = await apiService.post(url, { email, pass_key });
+        } = await apiService.post(`/auth/user/login`, {
+          email,
+          pass_key,
+        });
 
         if (typeof window !== "undefined") {
           setCookie("shcd.token", token, {
@@ -153,7 +155,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       }
       setAuthIsLoading(false);
     },
-    [baseUrl, router, toast]
+    [router, toast]
   );
 
   const SignOut = useCallback(() => {
