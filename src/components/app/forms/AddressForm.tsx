@@ -1,17 +1,17 @@
 "use client";
 import InputText from "@/components/common/InputText";
-import { ChangeEvent, useCallback, useEffect } from "react";
-import {
-  FieldValues,
-  Control,
-  Controller,
-  UseFormSetValue,
-} from "react-hook-form";
-import cep from "cep-promise";
 import { formatPostalCode } from "@/utils/helpers/masks/address";
+import cep from "cep-promise";
+import { ChangeEvent, useCallback } from "react";
+import {
+  Controller,
+  FieldValues,
+  type Control,
+  type UseFormSetValue,
+} from "react-hook-form";
 
 interface IAddressForm {
-  control: Control<FieldValues, any, FieldValues>;
+  control: Control<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
 }
 
@@ -70,7 +70,12 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           control={control}
           name="street"
           render={({ field: { onChange, ...rest } }) => (
-            <InputText label="logradouro" onChange={onChange} {...rest} placeholder="rua das flores" />
+            <InputText
+              label="logradouro"
+              onChange={onChange}
+              {...rest}
+              placeholder="rua das flores"
+            />
           )}
         />
       </div>
@@ -79,7 +84,12 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           control={control}
           name="number"
           render={({ field: { onChange, ...rest } }) => (
-            <InputText label="n°" onChange={onChange} {...rest} placeholder="00"/>
+            <InputText
+              label="n°"
+              onChange={onChange}
+              {...rest}
+              placeholder="00"
+            />
           )}
         />
       </div>
@@ -88,7 +98,12 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           control={control}
           name="neighborhood"
           render={({ field: { onChange, ...rest } }) => (
-            <InputText label="bairro" onChange={onChange} {...rest} placeholder="jardim das margaridas"/>
+            <InputText
+              label="bairro"
+              onChange={onChange}
+              {...rest}
+              placeholder="jardim das margaridas"
+            />
           )}
         />
       </div>
@@ -97,7 +112,12 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           control={control}
           name="city"
           render={({ field: { onChange, ...rest } }) => (
-            <InputText label="cidade" onChange={onChange} {...rest} placeholder="são paulo"/>
+            <InputText
+              label="cidade"
+              onChange={onChange}
+              {...rest}
+              placeholder="são paulo"
+            />
           )}
         />
       </div>
@@ -106,7 +126,12 @@ export function AddressForm({ control, setValue }: IAddressForm) {
           control={control}
           name="state"
           render={({ field: { onChange, ...rest } }) => (
-            <InputText label="estado" onChange={onChange} {...rest} placeholder="SP"/>
+            <InputText
+              label="estado"
+              onChange={onChange}
+              {...rest}
+              placeholder="SP"
+            />
           )}
         />
       </div>
